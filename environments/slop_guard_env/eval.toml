@@ -1,0 +1,8 @@
+endpoints_path = "endpoints.toml"
+
+save_results = true
+rollouts_per_example = 5
+num_examples = -1        # use full dataset (20 prompts)
+
+[[eval]]
+env_id = "nwyin/slopguard-env"

@@ -1,0 +1,35 @@
+model = "allenai/OLMo-3-7B-Instruct"
+max_steps = 200
+batch_size = 128
+rollouts_per_example = 8
+# Conservative LR for creative writing — style shifts are subtle
+# learning_rate = 1e-4
+# oversampling_factor = 2.0
+# max_async_level = 2
+
+[sampling]
+# Baseline averaged ~350 tokens; 1024 gives headroom for longer prose
+max_tokens = 1024
+
+[[env]]
+id = "nwyin/slopguard-env"
+
+# [wandb]
+# project = "slop-guard"
+# name = "olmo3-7b-i-slop-guard"
+
+# Online eval every 50 steps to track progress
+[eval]
+interval = 50
+num_examples = -1
+rollouts_per_example = 3
+eval_base_model = true
+
+[[eval.env]]
+id = "nwyin/slopguard-env"
+
+# Validation: quick check every 10 steps
+[val]
+num_examples = 10
+rollouts_per_example = 1
+interval = 10
